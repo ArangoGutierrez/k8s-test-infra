@@ -1,0 +1,63 @@
+# H4: namespace detect-vllm plus the H2 type-exclusive x1 templates
+# (h2/dra/claim-templates.yaml), namespace rewritten only.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: detect-vllm
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: h100-x1
+  namespace: detect-vllm
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Hopper' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA H100 80GB HBM3' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('9.0.0')
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: gb300-x1
+  namespace: detect-vllm
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Blackwell' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA GB300 NVL' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.0.0')
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-x1
+  namespace: detect-vllm
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Rubin' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA Graphics Device' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.7.0')

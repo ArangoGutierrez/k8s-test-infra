@@ -1,0 +1,48 @@
+# mokka-hetero real tier: 1 control-plane + 9 workers (3 h100, 3 gb300, 3 vr200).
+# Cluster-level settings copied from docs/guides/dra.md Step 1 (DRA feature
+# gate, resource.k8s.io/v1beta1 runtime-config, containerd enable_cdi).
+# Worker labels: nvml-mock/profile selects the per-profile nvml-mock release
+# (docs/guides/device-plugin.md fleet pattern); nvidia.com/gpu.present=true is
+# the DRA kubelet plugin's node-affinity label (docs/guides/dra.md Step 3),
+# applied to workers only because the control plane runs no nvml-mock.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: mokka-hetero
+featureGates:
+  DynamicResourceAllocation: true
+containerdConfigPatches:
+  - |-
+    [plugins."io.containerd.grpc.v1.cri"]
+      enable_cdi = true
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            runtime-config: "resource.k8s.io/v1beta1=true"
+  - role: worker
+    labels: &h100
+      nvml-mock/profile: h100
+      nvidia.com/gpu.present: "true"
+  - role: worker
+    labels: *h100
+  - role: worker
+    labels: *h100
+  - role: worker
+    labels: &gb300
+      nvml-mock/profile: gb300
+      nvidia.com/gpu.present: "true"
+  - role: worker
+    labels: *gb300
+  - role: worker
+    labels: *gb300
+  - role: worker
+    labels: &vr200
+      nvml-mock/profile: vr200
+      nvidia.com/gpu.present: "true"
+  - role: worker
+    labels: *vr200
+  - role: worker
+    labels: *vr200

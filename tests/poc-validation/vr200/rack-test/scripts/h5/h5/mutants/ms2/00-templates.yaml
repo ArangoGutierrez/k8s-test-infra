@@ -1,0 +1,149 @@
+# ResourceClaimTemplates that select exactly one GPU type each.
+#
+# API: resource.k8s.io/v1 (served by default from Kubernetes 1.34; the DRA
+# chart renders its own DeviceClass in v1 when the server has it,
+# chart templates/_helpers.tpl:187-198). On a v1beta1-only server,
+# drop the `exactly:` level (v1beta1 DeviceRequest carries deviceClassName,
+# selectors, allocationMode and count directly).
+#
+# Attribute names and values: dra-driver-nvidia-gpu v0.5.0
+# cmd/gpu-kubelet-plugin/deviceinfo.go:168-194 publishes productName,
+# architecture (go-nvlib GetArchitectureAsString) and cudaComputeCapability
+# (a version, "<major>.<minor>" through semver.MustParse(...).String()).
+# Attributes without a domain belong to the driver's domain, so CEL reads
+# them as device.attributes['gpu.nvidia.com'].<name>
+# (k8s v1.35.0 dynamic-resource-allocation/cel/compile.go:117-118, 257-261, 383-386).
+# Version attributes compare with == semver('x.y.z') (apiserver/pkg/cel/semver.go:59-65).
+#
+# Expected values per Mokka profile (combined tree @29cc7971), recomputed with
+# the driver's own vendored code in dra-driver/hack/h2probe:
+#   h100   productName "NVIDIA H100 80GB HBM3"  architecture "Hopper"    cc 9.0.0
+#   gb300  productName "NVIDIA GB300 NVL"       architecture "Blackwell" cc 10.0.0
+#   vr200  productName "NVIDIA Graphics Device" architecture "Rubin"     cc 10.7.0
+#
+# Each selector is the conjunction of all three, so a device that changes any
+# one of them (for example D3's vr200 -> gb300 repoint) stops matching.
+# Do NOT narrow a selector to memory (gb300 and vr200 are both 288Gi),
+# to cudaComputeCapability major 10 (both), to brand (all "Nvidia"), or to
+# productName alone for vr200 ("NVIDIA Graphics Device" is the generic name
+# any board missing from the driver's product table reports).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sched-test
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: h100-x1
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Hopper' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA H100 80GB HBM3' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('9.0.0')
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: gb300-x1
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Blackwell' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA GB300 NVL' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.0.0')
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-x1
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Rubin' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA Graphics Device' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.7.0')
+---
+# S3: one claim = one whole VR200 tray (4 GPUs). Every KWOK VR200 node has
+# exactly 4 devices, so each S3 pod takes a whole tray.
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-x4
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpus
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          allocationMode: ExactCount
+          count: 4
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Rubin' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA Graphics Device' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.7.0')
+---
+# S1b only: NAIVE selector, memory == 288Gi. Matches GB300 and VR200 (both 288Gi).
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-naive-mem
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.capacity['gpu.nvidia.com'].memory.compareTo(quantity('288Gi')) == 0
+---
+# S1b only: NAIVE selector, compute capability major 10. Matches GB300 (10.0) and VR200 (10.7).
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-naive-cc10
+  namespace: sched-test
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability.major() == 10

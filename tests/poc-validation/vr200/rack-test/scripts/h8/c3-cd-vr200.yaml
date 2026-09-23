@@ -1,0 +1,91 @@
+# ComputeDomain over the 3 real VR200 workers (mokka-hetero-worker7..9), the
+# only VR200 nodes that run containers. KWOK trays run no containers, so no
+# IMEX daemon can ever run for the KWOK rack (H2/H3).
+#
+# API: resource.nvidia.com/v1beta1 ComputeDomain, dra-driver v0.5.0
+# (api/nvidia.com/resource/v1beta1/computedomain.go:63-104). numNodes: 3 only
+# drives the global status (Ready when 3 daemons are ready,
+# cmd/compute-domain-controller/computedomain.go:285-298 and daemonset.go:385-390);
+# with IMEXDaemonsWithDNSNames=true (default, featuregates.go:131-135) it does
+# not gate pod start.
+#
+# Each workload pod holds one whole VR200 tray (4 GPUs, vr200-x4) AND one IMEX
+# channel of the domain, one pod per worker.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mokka-hetero-cd
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-x4
+  namespace: mokka-hetero-cd
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpus
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          allocationMode: ExactCount
+          count: 4
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Rubin' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA Graphics Device' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.7.0')
+---
+apiVersion: resource.nvidia.com/v1beta1
+kind: ComputeDomain
+metadata:
+  name: vr200-cd
+  namespace: mokka-hetero-cd
+spec:
+  numNodes: 3
+  channel:
+    resourceClaimTemplate:
+      name: vr200-cd-channel
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vr200-cd-workload
+  namespace: mokka-hetero-cd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vr200-cd-workload
+  template:
+    metadata:
+      labels:
+        app: vr200-cd-workload
+    spec:
+      nodeSelector:
+        nvml-mock/profile: vr200
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: vr200-cd-workload
+            topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: app
+        image: busybox:1.36
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c", "ls -la /dev/nvidia-caps-imex-channels; trap 'exit 0' TERM; sleep 86400 & wait"]
+        resources:
+          claims:
+          - name: gpus
+          - name: imex-channel
+      resourceClaims:
+      - name: gpus
+        resourceClaimTemplateName: vr200-x4
+      - name: imex-channel
+        # created by the ComputeDomain controller from spec.channel above
+        resourceClaimTemplateName: vr200-cd-channel

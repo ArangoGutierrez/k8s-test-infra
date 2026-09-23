@@ -1,0 +1,113 @@
+# S1 type targeting: one small Deployment per GPU type, each pod holding one
+# GPU through its type's ResourceClaimTemplate (dra/claim-templates.yaml).
+#
+# Pods tolerate the KWOK taint so they may land on real or KWOK nodes; the
+# claim selector, not a node selector, is what must keep them on their type.
+# On a KWOK node the pod reaches Running through KWOK's pod-ready stage
+# (stage-fast-v0.8.0.yaml:204-292) after the scheduler has allocated and
+# reserved the claim; no kubelet plugin prepares anything there (KWOK v0.8.0
+# has no DRA code, see the report; its own DRA example relies on exactly this,
+# site/content/en/docs/examples/dra.md:190-206). On a real node the DRA
+# kubelet plugin prepares the claim as in docs/guides/dra.md:130-132.
+#
+# Check (per pod): every device in .status.allocation.devices.results of its
+# claim resolves, through {pool, device} to a ResourceSlice device whose
+# architecture/productName/cudaComputeCapability are the Deployment's type.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s1-h100
+  namespace: sched-test
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s1
+      mokka-hetero.nvidia.com/want: h100
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s1
+        mokka-hetero.nvidia.com/want: h100
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: h100-x1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s1-gb300
+  namespace: sched-test
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s1
+      mokka-hetero.nvidia.com/want: gb300
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s1
+        mokka-hetero.nvidia.com/want: gb300
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: gb300-x1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s1-vr200
+  namespace: sched-test
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s1
+      mokka-hetero.nvidia.com/want: vr200
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s1
+        mokka-hetero.nvidia.com/want: vr200
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: vr200-x1

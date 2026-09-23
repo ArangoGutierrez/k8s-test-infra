@@ -1,0 +1,212 @@
+apiVersion: v1
+items:
+- apiVersion: resource.k8s.io/v1
+  kind: ResourceSlice
+  metadata:
+    creationTimestamp: "2026-09-23T10:14:05Z"
+    generateName: 00000-gpu.nvidia.com-mokka-hetero-worker-
+    generation: 2
+    name: 00000-gpu.nvidia.com-mokka-hetero-worker-hc2jp
+    ownerReferences:
+    - apiVersion: v1
+      controller: true
+      kind: Node
+      name: mokka-hetero-worker
+      uid: 62460aaa-0950-43f0-8b4c-05467ba196a3
+    resourceVersion: "3139"
+    uid: 0829923f-c840-49e8-adc8-fe36f43d7d49
+  spec:
+    devices:
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:4b:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000003
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-3
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:8b:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000005
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-5
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:cb:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000007
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-7
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:1b:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000001
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-1
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:4a:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000002
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-2
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:8a:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000004
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-4
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:ca:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000006
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-6
+    - attributes:
+        architecture:
+          string: Hopper
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 9.0.0
+        cudaDriverVersion:
+          version: 12.4.0
+        driverVersion:
+          version: 550.163.1
+        productName:
+          string: NVIDIA H100 80GB HBM3
+        resource.kubernetes.io/pciBusID:
+          string: 0000:1a:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-01000100-0000-0000-0000-000000000000
+      capacity:
+        memory:
+          value: 80Gi
+      name: gpu-0
+    driver: gpu.nvidia.com
+    nodeName: mokka-hetero-worker
+    pool:
+      generation: 1
+      name: mokka-hetero-worker
+      resourceSliceCount: 1
+kind: List
+metadata:
+  resourceVersion: ""

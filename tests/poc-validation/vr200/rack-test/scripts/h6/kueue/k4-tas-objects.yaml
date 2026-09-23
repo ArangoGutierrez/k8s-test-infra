@@ -1,0 +1,165 @@
+# Kueue TAS objects for the mokka-hetero rack test (design b: a per-type
+# accounting extended resource beside the DRA claim). Kueue v0.19.5, API
+# kueue.x-k8s.io/v1beta2 (storage version: topology_types.go:140,
+# resourceflavor_types.go:27, clusterqueue_types.go:599).
+#
+# Labels relied on (evidence):
+#   nvidia.com/gpu.clique            Mokka control-plane projection, one value
+#                                    per KWOK rack, 18 nodes each (H3 step 3b);
+#                                    absent on all 10 real nodes (H3 check).
+#   kubernetes.io/hostname           every node (kwok gen-nodes-h3.sh; kind).
+#   mokka-hetero.nvidia.com/gpu-type KWOK nodes only (gen-nodes-h3.sh). The real
+#                                    workers carry nvml-mock/profile instead
+#                                    (kind-mokka-hetero.yaml); there is NO label
+#                                    shared by the real and KWOK nodes of a type.
+# Because a TAS flavor keeps only nodes that carry every level label
+# (pkg/util/tas/node.go:35-47), the real workers are outside these flavors
+# whatever their other labels are: the TAS test is a KWOK-rack test.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mokka-hetero-kueue
+---
+# Same selector as H2's vr200-x4 (h2/dra/claim-templates.yaml), in this
+# namespace because ResourceClaimTemplates are namespaced.
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: vr200-x4
+  namespace: mokka-hetero-kueue
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpus
+        exactly:
+          deviceClassName: gpu.nvidia.com
+          allocationMode: ExactCount
+          count: 4
+          selectors:
+          - cel:
+              expression: >-
+                device.attributes['gpu.nvidia.com'].architecture == 'Rubin' &&
+                device.attributes['gpu.nvidia.com'].productName == 'NVIDIA Graphics Device' &&
+                device.attributes['gpu.nvidia.com'].cudaComputeCapability == semver('10.7.0')
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: Topology
+metadata:
+  name: mokka-hetero-rack
+spec:
+  levels:
+  - nodeLabel: nvidia.com/gpu.clique
+  - nodeLabel: kubernetes.io/hostname
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ResourceFlavor
+metadata:
+  name: vr200-rack
+spec:
+  nodeLabels:
+    mokka-hetero.nvidia.com/gpu-type: vr200
+  topologyName: mokka-hetero-rack
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ResourceFlavor
+metadata:
+  name: gb300-rack
+spec:
+  nodeLabels:
+    mokka-hetero.nvidia.com/gpu-type: gb300
+  topologyName: mokka-hetero-rack
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ResourceFlavor
+metadata:
+  name: h100-group
+spec:
+  nodeLabels:
+    mokka-hetero.nvidia.com/gpu-type: h100
+  topologyName: mokka-hetero-rack
+---
+# One ClusterQueue per type, so a job can only be charged to its own type.
+# Quota is deliberately TWICE the rack (2 x 72): the second 18-tray job must be
+# held by TAS, not by quota. If quota were 72, "B waits" would prove nothing
+# about topology. Both resources the pod set carries must be covered, or the
+# Workload is inadmissible: the accounting resource from the pod spec and the
+# DRA charge Kueue adds from deviceClassMappings (workload.go:740-757).
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ClusterQueue
+metadata:
+  name: vr200
+spec:
+  namespaceSelector: {}
+  resourceGroups:
+  - coveredResources:
+    - mokka-hetero.nvidia.com/tas-vr200-gpu
+    - mokka-hetero.nvidia.com/dra-gpu
+    flavors:
+    - name: vr200-rack
+      resources:
+      - name: mokka-hetero.nvidia.com/tas-vr200-gpu
+        nominalQuota: "144"
+      - name: mokka-hetero.nvidia.com/dra-gpu
+        nominalQuota: "144"
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ClusterQueue
+metadata:
+  name: gb300
+spec:
+  namespaceSelector: {}
+  resourceGroups:
+  - coveredResources:
+    - mokka-hetero.nvidia.com/tas-gb300-gpu
+    - mokka-hetero.nvidia.com/dra-gpu
+    flavors:
+    - name: gb300-rack
+      resources:
+      - name: mokka-hetero.nvidia.com/tas-gb300-gpu
+        nominalQuota: "144"
+      - name: mokka-hetero.nvidia.com/dra-gpu
+        nominalQuota: "144"
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: ClusterQueue
+metadata:
+  name: h100
+spec:
+  namespaceSelector: {}
+  resourceGroups:
+  - coveredResources:
+    - mokka-hetero.nvidia.com/tas-h100-gpu
+    - mokka-hetero.nvidia.com/dra-gpu
+    flavors:
+    - name: h100-group
+      resources:
+      - name: mokka-hetero.nvidia.com/tas-h100-gpu
+        nominalQuota: "288"
+      - name: mokka-hetero.nvidia.com/dra-gpu
+        nominalQuota: "288"
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: LocalQueue
+metadata:
+  name: vr200
+  namespace: mokka-hetero-kueue
+spec:
+  clusterQueue: vr200
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: LocalQueue
+metadata:
+  name: gb300
+  namespace: mokka-hetero-kueue
+spec:
+  clusterQueue: gb300
+---
+apiVersion: kueue.x-k8s.io/v1beta2
+kind: LocalQueue
+metadata:
+  name: h100
+  namespace: mokka-hetero-kueue
+spec:
+  clusterQueue: h100

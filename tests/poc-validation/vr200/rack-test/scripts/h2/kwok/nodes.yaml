@@ -1,0 +1,2322 @@
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-00
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-00
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-01
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-01
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-02
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-02
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-03
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-03
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-04
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-04
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-05
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-05
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-06
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-06
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-07
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-07
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-08
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-08
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-09
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-09
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-10
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-10
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-11
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-11
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-12
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-12
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-13
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-13
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-14
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-14
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-15
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-15
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-16
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-16
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-vr200-17
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-vr200-17
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: vr200
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-vr200
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-00
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-00
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-01
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-01
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-02
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-02
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-03
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-03
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-04
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-04
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-05
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-05
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-06
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-06
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-07
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-07
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-08
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-08
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-09
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-09
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-10
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-10
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-11
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-11
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-12
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-12
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-13
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-13
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-14
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-14
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-15
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-15
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-16
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-16
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-gb300-17
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-gb300-17
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: gb300
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-gb300
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-00
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-00
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-01
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-01
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-02
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-02
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-03
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-03
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-04
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-04
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-05
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-05
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-06
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-06
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-07
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-07
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-08
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-08
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-09
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-09
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-10
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-10
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-11
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-11
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-12
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-12
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-13
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-13
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-14
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-14
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-15
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-15
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-16
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-16
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: kwok-h100-17
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    kwok.x-k8s.io/node: fake
+  labels:
+    kubernetes.io/hostname: kwok-h100-17
+    kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    type: kwok
+    mokka-hetero.nvidia.com/tier: kwok
+    mokka-hetero.nvidia.com/gpu-type: h100
+    mokka.nvidia.com/sgpu-node: "true"
+    mokka.nvidia.com/pool: kwok-h100
+spec:
+  taints:
+  - key: kwok.x-k8s.io/node
+    value: fake
+    effect: NoSchedule
+status:
+  allocatable:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  capacity:
+    cpu: "64"
+    memory: 512Gi
+    pods: "110"
+  nodeInfo:
+    architecture: amd64
+    bootID: ""
+    containerRuntimeVersion: ""
+    kernelVersion: ""
+    kubeProxyVersion: fake
+    kubeletVersion: fake
+    machineID: ""
+    operatingSystem: linux
+    osImage: ""
+    systemUUID: ""
+  phase: Running

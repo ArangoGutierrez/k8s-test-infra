@@ -1,0 +1,53 @@
+# Helm values for kueue-0.19.5.tgz (GitHub release asset of kubernetes-sigs/kueue
+# v0.19.5 = 8e60d76a, sha256 1c97fb12...1048e0). Install from the local tgz, not
+# from oci://registry.k8s.io: the VM resets every *.pkg.dev connection (H3 1a).
+#
+# Why each setting:
+# - image: the official name, loaded into the kind nodes by k1-kueue-image.sh
+#   from the staging repo by the digest the k8s image promoter pins
+#   (kubernetes/k8s.io @34e1e12a registry.k8s.io/images/k8s-staging-kueue/images.yaml:159).
+#   IfNotPresent makes the kubelet use the loaded image.
+# - managedJobsNamespaceSelector: the chart copies it into the namespaceSelector
+#   of every job webhook (chart templates/webhook/manifests.yaml:42-44, 97-99,
+#   159-162, 320-322 ...). The default (all but kube-system and kueue-system)
+#   would put the mokka, nvidia and scenario namespaces behind failurePolicy=Fail
+#   webhooks: a Kueue outage would then block DaemonSet pod creation there.
+# - frameworks: batch/job only. With "pod", "deployment" and "statefulset"
+#   absent the chart renders those three webhooks with failurePolicy: Ignore
+#   (templates/webhook/manifests.yaml:92-96, 315-319, and the statefulset one).
+# - deviceClassMappings: mandatory while the pods carry DRA claims. With
+#   KueueDRAIntegration on (Beta, default on, pkg/features/kube_features.go:807-808)
+#   a claim whose DeviceClass is unmapped makes the Workload inadmissible
+#   (pkg/dra/claims.go:213-219); turning the gate off instead makes
+#   KueueDRARejectWorkloadsWhenDRADisabled reject it (workload_controller.go:432-449).
+#   The charge is quota only: TAS never reads it (tas_flavorassigner.go:111-112).
+controllerManager:
+  manager:
+    image:
+      repository: registry.k8s.io/kueue/kueue
+      tag: v0.19.5
+      pullPolicy: IfNotPresent
+managerConfig:
+  controllerManagerConfigYaml: |-
+    apiVersion: config.kueue.x-k8s.io/v1beta2
+    kind: Configuration
+    health:
+      healthProbeBindAddress: :8081
+    metrics:
+      bindAddress: :8443
+    webhook:
+      port: 9443
+    leaderElection:
+      leaderElect: true
+      resourceName: c1f6bfd2.kueue.x-k8s.io
+    managedJobsNamespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: mokka-hetero-kueue
+    integrations:
+      frameworks:
+      - "batch/job"
+    resources:
+      deviceClassMappings:
+      - name: mokka-hetero.nvidia.com/dra-gpu
+        deviceClassNames:
+        - gpu.nvidia.com

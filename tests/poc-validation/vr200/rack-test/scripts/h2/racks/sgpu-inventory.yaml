@@ -1,0 +1,48 @@
+# One SGPUInventory, three rack groups, one rack each, selecting the KWOK
+# Nodes by pool label (kwok/gen-nodes.sh sets mokka.nvidia.com/pool and
+# mokka.nvidia.com/sgpu-node=true on every KWOK Node).
+#
+# Selectors are disjoint on purpose: an eligible Node matched by two groups is
+# left unassigned in conflict (docs/mokka-controller.md:188-189). Selectors
+# may not reference mokka.nvidia.com/sgpu-assigned or nvidia.com/gpu.clique
+# (internal/sgpu/inventory/allocate/selectors.go:69-80).
+#
+# What the control plane then owns on each assigned Node, and nothing else
+# (docs/mokka-controller.md:168-173; internal/sgpu/inventory/metadata/keys.go:8-13):
+#   label      mokka.nvidia.com/sgpu-assigned=true
+#   label      nvidia.com/gpu.clique=<rack fabricUUID>.<cliqueID>
+#              (cliqueID is always 0: rack/materialize.go:250-255;
+#               value format: projection/controller.go:792-797)
+#   annotation mokka.nvidia.com/sgpu-assignment=<compact JSON: v, inventory,
+#              rack, profile{name,uid,revision}, rackGroup, rackIndex,
+#              nodeIndex, nodeUID> (assignment/assignment.go:35-42, 46-64)
+apiVersion: mokka.nvidia.com/v1alpha1
+kind: SGPUInventory
+metadata:
+  name: mokka-hetero
+spec:
+  rackGroups:
+    - id: vr200
+      count: 1
+      profileRef:
+        name: hetero-vr200-nvl72
+      placement:
+        nodeSelector:
+          matchLabels:
+            mokka.nvidia.com/pool: kwok-vr200
+    - id: gb300
+      count: 1
+      profileRef:
+        name: hetero-gb300-nvl72
+      placement:
+        nodeSelector:
+          matchLabels:
+            mokka.nvidia.com/pool: kwok-gb300
+    - id: h100
+      count: 1
+      profileRef:
+        name: hetero-h100-hgx
+      placement:
+        nodeSelector:
+          matchLabels:
+            mokka.nvidia.com/pool: kwok-h100

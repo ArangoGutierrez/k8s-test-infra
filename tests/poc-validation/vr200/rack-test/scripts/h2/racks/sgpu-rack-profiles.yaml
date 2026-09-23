@@ -1,0 +1,292 @@
+# SGPURackProfiles for the mokka-hetero KWOK tier.
+#
+# Every value is copied from the nvml-mock profile of the same type in the
+# combined tree (.worktrees/rack-hetero @ 29cc7971,
+# deployments/nvml-mock/helm/nvml-mock/profiles/<type>.yaml); the line cited
+# after each block is where it comes from. Strings that the DRA driver also
+# publishes (productName, architecture) use the driver's spelling so a
+# SGPURack and a ResourceSlice read the same (architecture strings from
+# go-nvlib v0.12.0 device.go:94-99 as vendored by dra-driver-nvidia-gpu v0.5.0).
+#
+# The control plane validates only the rack shape, GPU count, gpuSlots,
+# gpuFabric and network (internal/sgpu/inventory/rack/materialize.go:64-131);
+# model fields are free-form and never checked against anything.
+#
+# gpuSlots[].pciAddress is the lowercase BDF the DRA driver publishes as
+# resource.kubernetes.io/pciBusID for the same GPU. The ResourceSlice clone
+# (dra/clone-slices.sh) joins on it to take each fake GPU's UUID from the
+# SGPURack, so it must stay identical to the real slice's pciBusID.
+---
+apiVersion: mokka.nvidia.com/v1alpha1
+kind: SGPURackProfile
+metadata:
+  name: hetero-vr200-nvl72
+spec:
+  rack:
+    nodesPerRack: 18
+  node:
+    gpus:
+      count: 4                                  # vr200.yaml:423-479 (4 devices)
+      model:
+        vendor: NVIDIA
+        product: VR200 NVL                      # vr200.yaml:1
+        productName: NVIDIA Graphics Device     # vr200.yaml:48
+        architecture: Rubin                     # vr200.yaml:65 "rubin" -> NVML 13 -> go-nvlib "Rubin"
+        computeCapability:                      # vr200.yaml:66-68
+          major: 10
+          minor: 7
+        board:
+          partNumber: 699-2G558-3201-TS3        # vr200.yaml:51
+        firmware:
+          vbiosVersion: 99.00.1B.00.00          # vr200.yaml:52
+          gspVersion: "615.23"                  # vr200.yaml:398
+          infoROM:                              # vr200.yaml:105-108 (pwr_object absent)
+            imageVersion: G558.0200.00.01
+            oemObjectVersion: "2.1"
+            eccObjectVersion: "7.16"
+      memory:
+        capacity: 288Gi                         # vr200.yaml:118 (309237645312 B)
+        reserved: 1277Mi                        # vr200.yaml:119 (1339031552 B)
+        bar1Capacity: 512Gi                     # vr200.yaml:125
+        busWidthBits: 16384                     # vr200.yaml:122
+      pci:                                      # vr200.yaml:133-139
+        vendorID: 10de
+        deviceID: 307f
+        subsystemVendorID: 10de
+        subsystemDeviceID: 221a
+        maxLink:
+          generation: 6
+          width: 16
+    topology:
+      gpuSlots:                                 # vr200.yaml:440-479, 542-553
+        - index: 0
+          pciAddress: "0002:81:00.0"
+          rootComplex: pci0002:80
+          numaNode: 0
+          hostProcessorIndex: 0
+        - index: 1
+          pciAddress: "0002:c1:00.0"
+          rootComplex: pci0002:80
+          numaNode: 0
+          hostProcessorIndex: 0
+        - index: 2
+          pciAddress: "000a:81:00.0"
+          rootComplex: pci000a:80
+          numaNode: 1
+          hostProcessorIndex: 1
+        - index: 3
+          pciAddress: "000a:e1:00.0"
+          rootComplex: pci000a:80
+          numaNode: 1
+          hostProcessorIndex: 1
+      gpuFabric:                                # vr200.yaml:492-511
+        type: NVLink
+        generation: 6
+        linksPerGPU: 18
+        bandwidthPerLinkMBps: 100000
+        c2cSupported: true
+        domain:
+          scope: Rack
+          gpuCount: 72                          # must equal 18 x 4 (materialize.go:115-122)
+        switches:
+          visiblePerNode: 4
+      network:                                  # vr200.yaml:522-534
+        type: InfiniBand
+        adapterModel: ConnectX-9
+        firmwareVersion: 82.50.1002
+        linkSpeedGbps: 800
+        adaptersPerGPU: 2
+  software:                                     # vr200.yaml:23-25
+    driverVersion: "615.23"
+    nvmlVersion: "13.615.23"
+    cudaVersion: "13.4"
+---
+apiVersion: mokka.nvidia.com/v1alpha1
+kind: SGPURackProfile
+metadata:
+  name: hetero-gb300-nvl72
+spec:
+  rack:
+    nodesPerRack: 18
+  node:
+    gpus:
+      count: 4                                  # gb300.yaml:441-480 (4 devices)
+      model:
+        vendor: NVIDIA
+        product: GB300 NVL                      # gb300.yaml:1
+        productName: NVIDIA GB300 NVL           # gb300.yaml:31
+        architecture: Blackwell                 # gb300.yaml:41
+        computeCapability:                      # gb300.yaml:42-44
+          major: 10
+          minor: 0
+        cores:
+          cuda: 21632                           # gb300.yaml:45
+        board:
+          partNumber: 699-2G530-0300-000        # gb300.yaml:34
+        firmware:
+          vbiosVersion: 97.00.41.00.01          # gb300.yaml:35
+          gspVersion: 570.124.06                # gb300.yaml:399
+          infoROM:                              # gb300.yaml:87-91
+            imageVersion: G530.0300.00.01
+            oemObjectVersion: "2.1"
+            eccObjectVersion: "7.20"
+            powerObjectVersion: "1.0"
+      memory:
+        capacity: 288Gi                         # gb300.yaml:97 (309237645312 B)
+        reserved: 1536Mi                        # gb300.yaml:98 (1610612736 B)
+        bar1Capacity: 768Gi                     # gb300.yaml:104
+        busWidthBits: 8192                      # gb300.yaml:101
+      pci:                                      # gb300.yaml:111-118
+        vendorID: 10de
+        deviceID: "2941"
+        subsystemVendorID: 10de
+        subsystemDeviceID: "1830"
+        maxLink:
+          generation: 6
+          width: 16
+      capabilities:
+        mig:                                    # gb300.yaml:361-364
+          supported: true
+          maxGPUInstances: 7
+    topology:
+      gpuSlots:                                 # gb300.yaml:441-480, 529-540
+        - index: 0
+          pciAddress: "0000:0a:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+          hostProcessorIndex: 0
+        - index: 1
+          pciAddress: "0000:0b:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+          hostProcessorIndex: 0
+        - index: 2
+          pciAddress: "0000:4a:00.0"
+          rootComplex: pci0000:40
+          numaNode: 1
+          hostProcessorIndex: 1
+        - index: 3
+          pciAddress: "0000:4b:00.0"
+          rootComplex: pci0000:40
+          numaNode: 1
+          hostProcessorIndex: 1
+      gpuFabric:                                # gb300.yaml:485-504
+        type: NVLink
+        generation: 5
+        linksPerGPU: 18
+        bandwidthPerLinkMBps: 53125
+        c2cSupported: true
+        domain:
+          scope: Rack
+          gpuCount: 72
+        switches:
+          visiblePerNode: 4
+      network:                                  # gb300.yaml:509-521
+        type: InfiniBand
+        adapterModel: ConnectX-7
+        firmwareVersion: 28.43.1000
+        linkSpeedGbps: 400
+        adaptersPerGPU: 1
+  software:                                     # gb300.yaml:10-15
+    driverVersion: 570.124.06
+    nvmlVersion: "12.570.124.06"
+    cudaVersion: "12.8"
+---
+# HGX H100: the NVLink domain is the 8-GPU baseboard, not the rack. The CRD
+# admits gpuFabric.domain.scope Node, but the control plane rejects any
+# gpuFabric that is not Rack-scoped with gpuCount == nodesPerRack x count
+# (materialize.go:110-123), so this profile declares no gpuFabric at all.
+# The "rack" here is a placement group of 18 HGX nodes; the control plane
+# still projects one nvidia.com/gpu.clique value on it
+# (projection/controller.go:792-797), which for H100 names the rack, not an
+# NVLink partition.
+apiVersion: mokka.nvidia.com/v1alpha1
+kind: SGPURackProfile
+metadata:
+  name: hetero-h100-hgx
+spec:
+  rack:
+    nodesPerRack: 18
+  node:
+    gpus:
+      count: 8                                  # h100.yaml:360-415 (8 devices)
+      model:
+        vendor: NVIDIA
+        product: HGX H100                       # h100.yaml:1
+        productName: NVIDIA H100 80GB HBM3      # h100.yaml:24
+        architecture: Hopper                    # h100.yaml:33
+        computeCapability:                      # h100.yaml:34-36
+          major: 9
+          minor: 0
+        cores:
+          cuda: 16896                           # h100.yaml:37
+        board:
+          partNumber: 699-21010-0200-000        # h100.yaml:27
+        firmware:
+          vbiosVersion: 96.00.74.00.09          # h100.yaml:28
+          gspVersion: 550.163.01                # h100.yaml:343
+          infoROM:                              # h100.yaml:57-61 (pwr_object N/A)
+            imageVersion: H100.0200.00.04
+            oemObjectVersion: "2.1"
+            eccObjectVersion: "7.16"
+      memory:
+        capacity: 80Gi                          # h100.yaml:67
+        reserved: 1Gi                           # h100.yaml:68
+        bar1Capacity: 256Gi                     # h100.yaml:74
+        busWidthBits: 5120                      # h100.yaml:71
+      pci:                                      # h100.yaml:81-88
+        vendorID: 10de
+        deviceID: "2330"
+        subsystemVendorID: 10de
+        subsystemDeviceID: "1658"
+        maxLink:
+          generation: 5
+          width: 16
+      capabilities:
+        mig:                                    # h100.yaml:305-308
+          supported: true
+          maxGPUInstances: 7
+    topology:
+      gpuSlots:                                 # h100.yaml:360-415, 466-481
+        - index: 0
+          pciAddress: "0000:1a:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+        - index: 1
+          pciAddress: "0000:1b:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+        - index: 2
+          pciAddress: "0000:4a:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+        - index: 3
+          pciAddress: "0000:4b:00.0"
+          rootComplex: pci0000:00
+          numaNode: 0
+        - index: 4
+          pciAddress: "0000:8a:00.0"
+          rootComplex: pci0000:80
+          numaNode: 1
+        - index: 5
+          pciAddress: "0000:8b:00.0"
+          rootComplex: pci0000:80
+          numaNode: 1
+        - index: 6
+          pciAddress: "0000:ca:00.0"
+          rootComplex: pci0000:80
+          numaNode: 1
+        - index: 7
+          pciAddress: "0000:cb:00.0"
+          rootComplex: pci0000:80
+          numaNode: 1
+      network:                                  # h100.yaml:443-455
+        type: InfiniBand
+        adapterModel: ConnectX-7
+        firmwareVersion: 28.39.2048
+        linkSpeedGbps: 400
+        adaptersPerGPU: 1
+  software:                                     # h100.yaml:10-15
+    driverVersion: 550.163.01
+    nvmlVersion: "12.550.163.01"
+    cudaVersion: "12.4"

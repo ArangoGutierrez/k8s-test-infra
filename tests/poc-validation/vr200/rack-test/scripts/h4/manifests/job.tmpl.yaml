@@ -1,0 +1,62 @@
+# H4 detection Job, rendered per type by h4-run.sh (__TYPE__, __NODE__).
+# One GPU of the type through DRA (the H2 x1 template). Driver exposure for
+# phase B is the spike's (manifests/vllm-discovery.yaml): Mokka NVML only,
+# copied out of the mock driver root, plus the image's own compat libcuda;
+# the container env sets none of it so phase A sees DRA's injection alone.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: h4-vllm-__TYPE__
+  namespace: detect-vllm
+  labels: { app: h4-vllm, gpu-type: __TYPE__ }
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 1200
+  template:
+    metadata:
+      labels: { app: h4-vllm, gpu-type: __TYPE__ }
+    spec:
+      restartPolicy: Never
+      enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: __NODE__
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: __TYPE__-x1
+      initContainers:
+        - name: stage-nvml
+          image: docker.io/vllm/vllm-openai:v0.30.0
+          imagePullPolicy: Never
+          command: ["sh", "-c", "cp -a /opt/nvml-mock/driver/usr/lib64/libnvidia-ml.so* /opt/nvml-only/ && ls -l /opt/nvml-only"]
+          resources:
+            limits: { memory: 256Mi }
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only }
+      containers:
+        - name: vllm
+          image: docker.io/vllm/vllm-openai:v0.30.0
+          imagePullPolicy: Never
+          command: ["bash", "/probes/h4_detect.sh"]
+          env:
+            - { name: HF_HOME, value: /tmp/hf }
+            - { name: VLLM_NO_USAGE_STATS, value: "1" }
+          resources:
+            requests: { memory: 1Gi }
+            limits: { memory: 3Gi }
+            claims:
+              - name: gpu
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only, readOnly: true }
+            - { name: probes, mountPath: /probes, readOnly: true }
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - name: mock-root
+          hostPath: { path: /var/lib/nvml-mock, type: Directory }
+        - name: nvml-only
+          emptyDir: {}
+        - name: probes
+          configMap: { name: h4-probes }
+        - name: shm
+          emptyDir: { medium: Memory, sizeLimit: 1Gi }

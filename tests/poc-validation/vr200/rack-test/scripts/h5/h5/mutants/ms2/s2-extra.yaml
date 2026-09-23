@@ -1,0 +1,34 @@
+# S2 step 2 of 2: one more VR200 claim once all 84 VR200 devices are held.
+#
+# Expected: the pod stays Pending with a FailedScheduling event from the
+# default scheduler, and its claim never gets .status.allocation, while
+# 84 GB300 devices (12 real + 72 KWOK) are still free. That free GB300
+# capacity is what makes "never satisfied by GB300" a real assertion: if the
+# selector leaked, the scheduler would take one of them.
+#
+# The pod tolerates the KWOK taint like the fill pods, so the only thing that
+# can keep it off the 42 GB300 and H100 nodes (21 each, real and KWOK) is its
+# claim selector.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s2-vr200-extra
+  namespace: sched-test
+  labels:
+    mokka-hetero.nvidia.com/scenario: s2-extra
+spec:
+  terminationGracePeriodSeconds: 0
+  tolerations:
+  - key: kwok.x-k8s.io/node
+    operator: Exists
+    effect: NoSchedule
+  containers:
+  - name: app
+    image: registry.k8s.io/pause:3.10
+    imagePullPolicy: IfNotPresent
+    resources:
+      claims:
+      - name: gpu
+  resourceClaims:
+  - name: gpu
+    resourceClaimTemplateName: vr200-naive-cc10

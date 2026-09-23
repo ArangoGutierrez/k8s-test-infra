@@ -1,0 +1,120 @@
+apiVersion: v1
+items:
+- apiVersion: resource.k8s.io/v1
+  kind: ResourceSlice
+  metadata:
+    creationTimestamp: "2026-09-23T10:14:04Z"
+    generateName: 00000-gpu.nvidia.com-mokka-hetero-worker4-
+    generation: 2
+    name: 00000-gpu.nvidia.com-mokka-hetero-worker4-q6m2r
+    ownerReferences:
+    - apiVersion: v1
+      controller: true
+      kind: Node
+      name: mokka-hetero-worker4
+      uid: 1119be75-c191-411c-b76b-1053bce089df
+    resourceVersion: "3140"
+    uid: 5cd2d2ed-63bb-4c1a-bcf3-5334c059886c
+  spec:
+    devices:
+    - attributes:
+        architecture:
+          string: Blackwell
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 10.0.0
+        cudaDriverVersion:
+          version: 12.8.0
+        driverVersion:
+          version: 570.124.6
+        productName:
+          string: NVIDIA GB300 NVL
+        resource.kubernetes.io/pciBusID:
+          string: 0000:4b:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-b300b300-0000-0000-0000-000000000003
+      capacity:
+        memory:
+          value: 288Gi
+      name: gpu-3
+    - attributes:
+        architecture:
+          string: Blackwell
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 10.0.0
+        cudaDriverVersion:
+          version: 12.8.0
+        driverVersion:
+          version: 570.124.6
+        productName:
+          string: NVIDIA GB300 NVL
+        resource.kubernetes.io/pciBusID:
+          string: 0000:0a:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-b300b300-0000-0000-0000-000000000000
+      capacity:
+        memory:
+          value: 288Gi
+      name: gpu-0
+    - attributes:
+        architecture:
+          string: Blackwell
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 10.0.0
+        cudaDriverVersion:
+          version: 12.8.0
+        driverVersion:
+          version: 570.124.6
+        productName:
+          string: NVIDIA GB300 NVL
+        resource.kubernetes.io/pciBusID:
+          string: 0000:0b:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-b300b300-0000-0000-0000-000000000001
+      capacity:
+        memory:
+          value: 288Gi
+      name: gpu-1
+    - attributes:
+        architecture:
+          string: Blackwell
+        brand:
+          string: Nvidia
+        cudaComputeCapability:
+          version: 10.0.0
+        cudaDriverVersion:
+          version: 12.8.0
+        driverVersion:
+          version: 570.124.6
+        productName:
+          string: NVIDIA GB300 NVL
+        resource.kubernetes.io/pciBusID:
+          string: 0000:4a:00.0
+        type:
+          string: gpu
+        uuid:
+          string: GPU-b300b300-0000-0000-0000-000000000002
+      capacity:
+        memory:
+          value: 288Gi
+      name: gpu-2
+    driver: gpu.nvidia.com
+    nodeName: mokka-hetero-worker4
+    pool:
+      generation: 1
+      name: mokka-hetero-worker4
+      resourceSliceCount: 1
+kind: List
+metadata:
+  resourceVersion: ""

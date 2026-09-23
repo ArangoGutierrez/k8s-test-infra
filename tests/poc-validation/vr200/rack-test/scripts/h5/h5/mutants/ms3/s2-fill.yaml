@@ -1,0 +1,43 @@
+# S2 step 1 of 2: fill every VR200 device in the cluster, one GPU per pod.
+#
+# 84 = 3 real VR200 workers x 4 + 18 KWOK VR200 trays x 4 (SPEC topology).
+# Preconditions: S1 deleted (it holds VR200 devices), and exactly 84 devices
+# match vr200-x1's selector:
+#   kubectl get resourceslices -o json | jq '[.items[] | select(.spec.driver=="gpu.nvidia.com")
+#     | .spec.devices[] | select(.attributes.architecture.string=="Rubin")] | length'   # 84
+#
+# Apply s2-extra.yaml only after all 84 claims are allocated. Generated claims
+# carry the template's metadata, not the pod's labels, so run S2 alone in the
+# namespace and count every allocated claim there:
+#   kubectl -n sched-test get resourceclaims -o json \
+#     | jq '[.items[] | select(.status.allocation != null)] | length'   # 84
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s2-vr200-fill
+  namespace: sched-test
+spec:
+  replicas: 84
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s2-fill
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s2-fill
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: vr200-x1

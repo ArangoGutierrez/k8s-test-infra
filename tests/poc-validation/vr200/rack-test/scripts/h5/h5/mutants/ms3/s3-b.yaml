@@ -1,0 +1,45 @@
+# S3 second Job: identical to s3-rack-a.yaml except for its name and its
+# own s3-job label. Apply only after all 18 pods of s3-rack-a are Running;
+# expected result: every pod of this Job stays Pending. See s3-rack-a.yaml
+# for the preconditions and the scheduler behaviour this relies on.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: s3-rack-b
+  namespace: sched-test
+spec:
+  completionMode: Indexed
+  completions: 18
+  parallelism: 18
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s3
+        mokka-hetero.nvidia.com/s3-job: b
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  mokka-hetero.nvidia.com/s3-job: b
+              topologyKey: nvidia.com/gpu.clique
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpus
+      resourceClaims:
+      - name: gpus
+        resourceClaimTemplateName: vr200-x4

@@ -1,0 +1,138 @@
+# The full serving shape on a simulated VR200 node: a Deployment that requests
+# nvidia.com/gpu: 4 exactly like a GPU deployment, a Service, a readiness probe,
+# the OpenAI-compatible API and Prometheus metrics. Tokens are computed on CPU
+# by vLLM's CPU build; the pod still sees 4 VR200 GPUs through Mokka's NVML.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-cpu
+  namespace: demo-llm
+  labels:
+    app.kubernetes.io/name: vllm-cpu
+spec:
+  replicas: 1
+  # The pod takes all 4 GPUs on its node, so a RollingUpdate surge pod would
+  # stay Pending on "Insufficient nvidia.com/gpu" forever. Replace instead.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm-cpu
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vllm-cpu
+    spec:
+      nodeSelector:
+        mokka-demo/role: cpu
+      # Service links would inject VLLM_CPU_* style env vars into vLLM's own
+      # VLLM_* env namespace (a Service named "vllm" sets VLLM_PORT=tcp://...,
+      # which vLLM rejects).
+      enableServiceLinks: false
+      initContainers:
+        # NVML only: the CPU build never needs the mock libcuda.
+        - name: stage-nvml
+          image: docker.io/vllm/vllm-openai-cpu:v0.30.0
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "cp -a /opt/nvml-mock/driver/usr/lib64/libnvidia-ml.so* /opt/nvml-only/"]
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only }
+      containers:
+        - name: vllm
+          image: docker.io/vllm/vllm-openai-cpu:v0.30.0
+          imagePullPolicy: IfNotPresent
+          # Image ENTRYPOINT is ["vllm", "serve"].
+          args:
+            - Qwen/Qwen2.5-0.5B-Instruct
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            # A 1 GiB KV cache was OOMKilled at a 4Gi limit (three torch
+            # processes plus 1 GB of weights), so 256 MiB here (~21k tokens).
+            - --kv-cache-memory-bytes
+            - "268435456"
+            - --max-model-len
+            - "2048"
+            - --max-num-batched-tokens
+            - "512"
+            - --max-num-seqs
+            - "8"
+            - --enforce-eager
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: PATH
+              value: /opt/nvml-mock/driver/usr/bin:/opt/venv/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - name: LD_LIBRARY_PATH
+              value: /opt/nvml-only
+            - name: MOCK_NVML_CONFIG
+              value: /opt/nvml-mock/driver/config/config.yaml
+            - name: HF_HOME
+              value: /tmp/hf
+            # The pod has a 4-CPU quota but sees every host core.
+            - name: VLLM_CPU_OMP_THREADS_BIND
+              value: nobind
+            - name: OMP_NUM_THREADS
+              value: "4"
+            - name: VLLM_NO_USAGE_STATS
+              value: "1"
+            - name: DO_NOT_TRACK
+              value: "1"
+          resources:
+            requests: { cpu: "2", memory: 2Gi }
+            limits: { cpu: "4", memory: 4Gi, nvidia.com/gpu: 4 }
+          readinessProbe:
+            httpGet: { path: /health, port: http }
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only, readOnly: true }
+            - { name: hf-cache, mountPath: /tmp/hf }
+            - { name: dshm, mountPath: /dev/shm }
+      volumes:
+        - name: mock-root
+          hostPath: { path: /var/lib/nvml-mock, type: Directory }
+        - name: nvml-only
+          emptyDir: {}
+        - name: hf-cache
+          emptyDir: {}
+        - name: dshm
+          emptyDir: { medium: Memory, sizeLimit: 1Gi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-cpu
+  namespace: demo-llm
+spec:
+  selector:
+    app.kubernetes.io/name: vllm-cpu
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+---
+# In-cluster client. Reuses the vllm-openai-cpu image (it ships curl), so no
+# extra pull.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+  namespace: demo-llm
+spec:
+  restartPolicy: Never
+  nodeSelector:
+    mokka-demo/role: cpu
+  containers:
+    - name: curl
+      image: docker.io/vllm/vllm-openai-cpu:v0.30.0
+      imagePullPolicy: IfNotPresent
+      command: ["sleep", "infinity"]
+      resources:
+        requests: { cpu: 50m, memory: 32Mi }
+        limits: { cpu: 200m, memory: 128Mi }

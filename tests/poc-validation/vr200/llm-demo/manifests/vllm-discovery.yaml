@@ -1,0 +1,61 @@
+# The unmodified vllm/vllm-openai image, scheduled like any GPU workload
+# (nvidia.com/gpu: 4) onto a simulated VR200 node.
+#
+# Driver exposure: Mokka's NVML only (copied out of the mock driver root), plus
+# the image's OWN CUDA forward-compat libcuda. Mokka's mock libcuda must NOT be
+# on the library path: vLLM's compiled extension links libcuda.so.1 and needs
+# cuPointerGetAttribute, which the mock lacks, so `import vllm` would fail.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vllm-discovery
+  namespace: demo-llm
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 900
+  template:
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        mokka-demo/role: vllm
+      initContainers:
+        - name: stage-nvml
+          image: docker.io/vllm/vllm-openai:v0.30.0
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "cp -a /opt/nvml-mock/driver/usr/lib64/libnvidia-ml.so* /opt/nvml-only/"]
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only }
+      containers:
+        - name: vllm
+          image: docker.io/vllm/vllm-openai:v0.30.0
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "/probes/vllm_discovery.sh"]
+          env:
+            - name: PATH
+              value: /opt/nvml-mock/driver/usr/bin:/usr/local/cuda/bin:/usr/local/nvidia/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - name: LD_LIBRARY_PATH
+              value: /opt/nvml-only:/usr/local/cuda-13.0/compat:/usr/local/nvidia/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib
+            - name: MOCK_NVML_CONFIG
+              value: /opt/nvml-mock/driver/config/config.yaml
+            - name: HF_HOME
+              value: /tmp/hf
+            - name: VLLM_NO_USAGE_STATS
+              value: "1"
+          resources:
+            requests: { memory: 1Gi }
+            limits: { memory: 3Gi, nvidia.com/gpu: 4 }
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only, readOnly: true }
+            - { name: probes, mountPath: /probes, readOnly: true }
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - name: mock-root
+          hostPath: { path: /var/lib/nvml-mock, type: Directory }
+        - name: nvml-only
+          emptyDir: {}
+        - name: probes
+          configMap: { name: demo-probes }
+        - name: shm
+          emptyDir: { medium: Memory, sizeLimit: 1Gi }

@@ -1,0 +1,54 @@
+# The unmodified lmsysorg/sglang image, scheduled like any GPU workload
+# (nvidia.com/gpu: 4) onto a simulated VR200 node, with Mokka's NVML only.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sglang-discovery
+  namespace: demo-llm
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 900
+  template:
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        mokka-demo/role: sglang
+      initContainers:
+        - name: stage-nvml
+          image: docker.io/lmsysorg/sglang:v0.5.20
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "cp -a /opt/nvml-mock/driver/usr/lib64/libnvidia-ml.so* /opt/nvml-only/"]
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only }
+      containers:
+        - name: sglang
+          image: docker.io/lmsysorg/sglang:v0.5.20
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "/probes/sglang_discovery.sh"]
+          env:
+            - name: PATH
+              value: /opt/nvml-mock/driver/usr/bin:/root/.cargo/bin:/opt/sglang/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - name: LD_LIBRARY_PATH
+              value: /opt/nvml-only:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64
+            - name: MOCK_NVML_CONFIG
+              value: /opt/nvml-mock/driver/config/config.yaml
+            - name: HF_HOME
+              value: /tmp/hf
+          resources:
+            requests: { memory: 1Gi }
+            limits: { memory: 3Gi, nvidia.com/gpu: 4 }
+          volumeMounts:
+            - { name: mock-root, mountPath: /opt/nvml-mock, readOnly: true }
+            - { name: nvml-only, mountPath: /opt/nvml-only, readOnly: true }
+            - { name: probes, mountPath: /probes, readOnly: true }
+            - { name: shm, mountPath: /dev/shm }
+      volumes:
+        - name: mock-root
+          hostPath: { path: /var/lib/nvml-mock, type: Directory }
+        - name: nvml-only
+          emptyDir: {}
+        - name: probes
+          configMap: { name: demo-probes }
+        - name: shm
+          emptyDir: { medium: Memory, sizeLimit: 1Gi }

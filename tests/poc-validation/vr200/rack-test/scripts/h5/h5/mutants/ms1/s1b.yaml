@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s1b-vr200-naive-mem
+  namespace: sched-test
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s1b
+      mokka-hetero.nvidia.com/want: vr200-naive-mem
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s1b
+        mokka-hetero.nvidia.com/want: vr200-naive-mem
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: vr200-naive-mem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s1b-vr200-naive-cc10
+  namespace: sched-test
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      mokka-hetero.nvidia.com/scenario: s1b
+      mokka-hetero.nvidia.com/want: vr200-naive-cc10
+  template:
+    metadata:
+      labels:
+        mokka-hetero.nvidia.com/scenario: s1b
+        mokka-hetero.nvidia.com/want: vr200-naive-cc10
+    spec:
+      terminationGracePeriodSeconds: 0
+      tolerations:
+      - key: kwok.x-k8s.io/node
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: app
+        image: registry.k8s.io/pause:3.10
+        imagePullPolicy: IfNotPresent
+        resources:
+          claims:
+          - name: gpu
+      resourceClaims:
+      - name: gpu
+        resourceClaimTemplateName: vr200-naive-cc10

@@ -1,0 +1,69 @@
+# OPTIONAL heterogeneity probe: one ComputeDomain whose two pods land on a
+# VR200 worker and a GB300 worker. The CD kubelet plugin derives the clique
+# from mock NVML fabric info; the profiles give VR200
+# 00000000-0000-0000-0000-000000000001.32766 and GB300
+# 00000000-0000-0000-0000-000000000001.0 (vr200.yaml:77-80, gb300.yaml:55-58),
+# and the daemon manages the ComputeDomainClique "<cdUID>.<cliqueID>"
+# (cmd/compute-domain-daemon/cdclique.go:171-173). Expected: TWO
+# ComputeDomainClique objects with one daemon each, and each IMEX daemon sees a
+# 1-node domain, i.e. the mock's per-type fabric identity keeps GB300 and VR200
+# out of one NVLink partition. numNodes 2 makes the CD Ready only when both
+# daemons are ready. Run it on its own, after c3 is deleted or with enough free
+# trays (one VR200 and one GB300 worker without GPU claims is enough: this
+# probe holds no GPUs).
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mokka-hetero-cd-mixed
+---
+apiVersion: resource.nvidia.com/v1beta1
+kind: ComputeDomain
+metadata:
+  name: mixed-cd
+  namespace: mokka-hetero-cd-mixed
+spec:
+  numNodes: 2
+  channel:
+    resourceClaimTemplate:
+      name: mixed-cd-channel
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mixed-vr200
+  namespace: mokka-hetero-cd-mixed
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: mokka-hetero-worker9
+  terminationGracePeriodSeconds: 5
+  containers:
+  - name: app
+    image: busybox:1.36
+    command: ["sh", "-c", "ls -la /dev/nvidia-caps-imex-channels; trap 'exit 0' TERM; sleep 86400 & wait"]
+    resources:
+      claims:
+      - name: imex-channel
+  resourceClaims:
+  - name: imex-channel
+    resourceClaimTemplateName: mixed-cd-channel
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mixed-gb300
+  namespace: mokka-hetero-cd-mixed
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: mokka-hetero-worker6
+  terminationGracePeriodSeconds: 5
+  containers:
+  - name: app
+    image: busybox:1.36
+    command: ["sh", "-c", "ls -la /dev/nvidia-caps-imex-channels; trap 'exit 0' TERM; sleep 86400 & wait"]
+    resources:
+      claims:
+      - name: imex-channel
+  resourceClaims:
+  - name: imex-channel
+    resourceClaimTemplateName: mixed-cd-channel
